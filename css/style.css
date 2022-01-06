@@ -11,31 +11,115 @@ main{
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
-    padding: 20px;
+    flex-direction: column;
+    padding: 20px 2.5%;
+}
+ul{
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    height: 80vh;
 }
 h1{
     text-transform: uppercase;
 }
-/* h5,p{
-    margin: 0;
-} */
+
+h5{
+    font-size: x-large;
+    margin:0;
+    
+}
+
 
 .person{
-    background-color: white;
-    border-radius: 5%;
-    border: 1px solid black;
-    padding: 10px;
-    width: 100%;
+
     display: flex;
     flex-wrap: nowrap;
-    align-content: space-between;
+    flex-direction: row;
+
+
+    background-color: white;
+    border-radius: .5em;
+    border: 1px solid grey;
+    width: 31%;
+    padding: 1em 2em;
+    
 }
 img{
     border-radius: 50%;
-    /* width: 10em; */
-    height: 6em;
+    width: 8em;
+    align-self: center;
+    margin-right: 5px;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1em;
+}
+
+p{
+    color: grey;
+    margin: 0;
+}
+
+/*
+    modal
+*/
+
+.modal-bg{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all ease-in-out 0.5s;
+}
+.bg-active{
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal{
+    position: relative;
+    background-color: white;
+    width: 25%;
+    height: 50%;
+    padding: 2em .5em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.hr{
+    height: 2px;
+    background-color: rgb(212, 212, 212);
+    width: 75%;
     align-self: center;
 }
-.info:nth-child(n){
-    margin:0;
+.close-bg{
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    width: 2em;
+    height: 1.5em;
+    background-color: rgb(53, 50, 50);
+    color: white;
+    border-radius: .3em;
+
+    font-weight: bold;
+    cursor: pointer;
 }
+
