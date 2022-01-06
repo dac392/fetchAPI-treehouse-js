@@ -2,7 +2,6 @@ const api_url = "https://randomuser.me/api/?results=12&nat=us";
 const ul = document.getElementById("employees");
 const modal_bg = document.querySelector(".modal-bg");
 const modal = document.querySelector(".modal");
-const close_bg = document.querySelector(".close-bg");
 
 let master_list = [];
 fetch(api_url)
@@ -39,10 +38,60 @@ function onInspectPerson(e){
         person_id = person.id;
         const html = modalHTML(master_list[person_id]);
         modal.insertAdjacentHTML("beforeend", html);
+        modal.id = `${person_id}`;
         modal_bg.classList.add("bg-active");
     }
 
 }
+
+function onModalClick(e){
+    if(e.target.classList.length===1){
+        onClose(e);
+    }else if(e.target.classList[1]==="next"){
+        onNextPerson(e);
+    }else if(e.target.classList[1]==="previous"){
+        onPreviousPerson(e);
+    }
+}
+function onClose(e){
+    modal_bg.classList.remove("bg-active");
+    modal.id = "";
+    const children = modal.children.length-3;
+    
+    for(let i = 0; i < children;i++){
+        modal.removeChild(modal.lastChild);
+    }
+}
+function onNextPerson(e){
+    const id = parseInt(modal.id);
+    modal.id = (id+1===master_list.length)? `0`:`${id+1}`;
+    const children = modal.children.length-3;
+    for(let i = 0; i < children;i++){
+        modal.removeChild(modal.lastChild);
+    }
+
+    
+    html = modalHTML(master_list[modal.id]);
+    modal.insertAdjacentHTML("beforeend", html);
+
+}
+function onPreviousPerson(e){
+    const id = parseInt(modal.id);
+    modal.id = (id===0)? `${master_list.length-1}`:`${id-1}`;
+    const children = modal.children.length-3;
+    for(let i = 0; i < children;i++){
+        modal.removeChild(modal.lastChild);
+    }
+
+    
+    html = modalHTML(master_list[modal.id]);
+    modal.insertAdjacentHTML("beforeend", html);
+}
+
+
+/*
+    ----------------helper function------------------------
+*/
 
 function modalHTML(person_obj){
     const dob_f = getdob(person_obj.dob.date);
@@ -59,18 +108,6 @@ function modalHTML(person_obj){
     
     return html;
 }
-
-function onClose(e){
-    modal_bg.classList.remove("bg-active");
-    const children = modal.children.length-1;
-    
-    for(let i = 0; i < children;i++){
-        modal.removeChild(modal.lastChild);
-    }
-}
-/*
-    ----------------helper function------------------------
-*/
 function getdob(dob){
     const regex = /^(\d{4})-(\d{2})-(\d{2}).*$/;
     return dob.replace(regex, "$2/$3/$1");
@@ -83,4 +120,4 @@ function getphone(phone){
 
 
 ul.addEventListener("click",onInspectPerson);
-close_bg.addEventListener("click", onClose);
+modal.addEventListener("click", onModalClick);
